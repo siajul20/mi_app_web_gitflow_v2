@@ -32,6 +32,7 @@ const elements = {
   productCategory: document.querySelector('#productCategory'),
   productPrice: document.querySelector('#productPrice'),
   productStock: document.querySelector('#productStock'),
+  lastSync: document.querySelector('#lastSync'),
   toast: document.querySelector('#toast')
 };
 
@@ -46,6 +47,10 @@ function loadProducts() {
 
 function saveProducts() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+}
+
+function updateLastSync() {
+  elements.lastSync.textContent = 'ahora';
 }
 
 function formatCurrency(value) {
@@ -147,7 +152,7 @@ function deleteProduct(id) {
   const product = products.find((item) => item.id === id);
   if (!product || !window.confirm(`¿Eliminar ${product.name} del inventario?`)) return;
   products = products.filter((item) => item.id !== id);
-  saveProducts(); render(); showToast('Producto eliminado correctamente');
+  saveProducts(); render(); updateLastSync(); showToast('Producto eliminado correctamente');
 }
 
 function exportCsv() {
@@ -173,7 +178,7 @@ elements.form.addEventListener('submit', (event) => {
     products.unshift({ ...data, id: `NS-${String(nextNumber).padStart(3, '0')}`, icon: '◈', tone: 'tone-three' });
     showToast('Producto agregado al inventario');
   }
-  saveProducts(); render(); closeModal();
+  saveProducts(); render(); updateLastSync(); closeModal();
 });
 
 document.querySelector('#newProductButton').addEventListener('click', () => openModal());
