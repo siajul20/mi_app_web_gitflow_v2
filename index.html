@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Panel de inventario de Nexo Supply">
+  <title>Nexo Supply | Inventario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div><strong>Nexo</strong><small>SUPPLY</small></div>
+      </div>
+
+      <div class="workspace-switcher">
+        <span class="workspace-icon">NS</span>
+        <div><small>Espacio de trabajo</small><strong>Operaciones</strong></div>
+        <span class="chevron">⌄</span>
+      </div>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <p class="nav-label">GESTIÓN</p>
+        <a class="nav-item active" href="#inventario"><span class="nav-icon">▦</span>Inventario<span class="nav-count" id="navProductCount">8</span></a>
+        <a class="nav-item" href="#movimientos"><span class="nav-icon">↕</span>Movimientos</a>
+        <a class="nav-item" href="#proveedores"><span class="nav-icon">♧</span>Proveedores</a>
+        <p class="nav-label second-label">ANÁLISIS</p>
+        <a class="nav-item" href="#reportes"><span class="nav-icon">◒</span>Reportes</a>
+        <a class="nav-item" href="#ajustes"><span class="nav-icon">⚙</span>Configuración</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-bubble">?</div>
+          <strong>¿Necesitas ayuda?</strong>
+          <p>Revisa la guía de operaciones.</p>
+          <a href="#ayuda">Abrir centro de ayuda <span>↗</span></a>
+        </div>
+        <div class="user-profile">
+          <div class="avatar">LM</div>
+          <div><strong>Laura Méndez</strong><small>Administradora</small></div>
+          <button class="icon-button" aria-label="Más opciones">•••</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="inventario">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Gestión</span><b>/</b><strong>Inventario</strong></div>
+        <div class="top-actions">
+          <button class="icon-button notification-button" aria-label="Notificaciones"><span>♧</span><i></i></button>
+          <div class="top-divider"></div>
+          <span class="last-sync">Última actualización <strong id="lastSync">hace 2 min</strong></span>
+          <div class="avatar avatar-small">LM</div>
+        </div>
+      </header>
+
+      <div class="page-wrap">
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow"><span class="live-dot"></span> Centro de operaciones</p>
+            <h1>Inventario</h1>
+            <p class="heading-copy">Controla tu stock y mantén tu operación en movimiento.</p>
+          </div>
+          <div class="heading-actions">
+            <button class="button button-secondary" id="exportButton"><span>↓</span> Exportar CSV</button>
+            <button class="button button-primary" id="newProductButton"><span>+</span> Nuevo producto</button>
+          </div>
+        </section>
+
+        <section class="metrics-grid" aria-label="Resumen de inventario">
+          <article class="metric-card">
+            <div class="metric-top"><span class="metric-label">Productos activos</span><span class="metric-icon blue">▦</span></div>
+            <div class="metric-value" id="totalProducts">8</div>
+            <div class="metric-foot positive"><span>↗</span> <strong id="activePercent">100%</strong> del catálogo <span class="muted">· vs. mes anterior</span></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span class="metric-label">Valor del inventario</span><span class="metric-icon purple">$</span></div>
+            <div class="metric-value" id="inventoryValue">$24.580</div>
+            <div class="metric-foot positive"><span>↗</span> <strong>12,8%</strong> <span class="muted">vs. mes anterior</span></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span class="metric-label">Stock bajo</span><span class="metric-icon orange">!</span></div>
+            <div class="metric-value" id="lowStock">2</div>
+            <div class="metric-foot warning"><span>●</span> Requieren atención</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span class="metric-label">Unidades totales</span><span class="metric-icon green">◫</span></div>
+            <div class="metric-value" id="totalUnits">1.248</div>
+            <div class="metric-foot positive"><span>↗</span> <strong>8,4%</strong> <span class="muted">vs. mes anterior</span></div>
+          </article>
+        </section>
+
+        <section class="inventory-panel">
+          <div class="panel-heading">
+            <div><h2>Todos los productos <span id="productCountBadge">8</span></h2><p>Administra y consulta los artículos de tu catálogo.</p></div>
+            <button class="more-button" aria-label="Más acciones">•••</button>
+          </div>
+          <div class="toolbar">
+            <label class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Buscar por nombre o ID..." aria-label="Buscar productos"></label>
+            <div class="filter-group">
+              <label class="select-wrap"><span>Categoría:</span><select id="categoryFilter"><option value="all">Todas</option></select></label>
+              <label class="select-wrap status-select"><span>Estado:</span><select id="statusFilter"><option value="all">Todos</option><option value="available">Disponible</option><option value="low">Stock bajo</option><option value="out">Agotado</option></select></label>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead><tr><th class="check-column"><input type="checkbox" id="selectAll" aria-label="Seleccionar todos"></th><th>PRODUCTO <span class="sort">↕</span></th><th>ID <span class="sort">↕</span></th><th>CATEGORÍA</th><th>PRECIO <span class="sort">↕</span></th><th>STOCK <span class="sort">↕</span></th><th>ESTADO</th><th></th></tr></thead>
+              <tbody id="productTableBody"></tbody>
+            </table>
+            <div class="empty-state" id="emptyState" hidden><div class="empty-icon">⌕</div><h3>No encontramos productos</h3><p>Prueba con otra búsqueda o cambia los filtros activos.</p></div>
+          </div>
+          <div class="table-footer"><span id="resultsSummary">Mostrando 8 de 8 productos</span><div class="pagination"><button class="page-button active">1</button><button class="page-button" disabled>2</button><button class="page-button" disabled>3</button><span>...</span><button class="page-button" disabled>›</button></div></div>
+        </section>
+        <footer class="page-footer"><span>© 2024 Nexo Supply</span><span><i class="status-dot"></i> Todos los sistemas operativos</span><span>v2.4.0</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="productModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><p class="eyebrow">Catálogo de productos</p><h2 id="modalTitle">Nuevo producto</h2></div><button class="close-button" id="closeModal" aria-label="Cerrar">×</button></div>
+      <form id="productForm">
+        <input type="hidden" id="productId">
+        <div class="form-grid"><label>Nombre del producto<input id="productName" required placeholder="Ej. Auriculares inalámbricos"></label><label>Categoría<select id="productCategory" required></select></label><label>Precio (USD)<input type="number" id="productPrice" min="0" step="0.01" required placeholder="0.00"></label><label>Stock disponible<input type="number" id="productStock" min="0" step="1" required placeholder="0"></label></div>
+        <div class="modal-actions"><button type="button" class="button button-secondary" id="cancelModal">Cancelar</button><button type="submit" class="button button-primary"><span>✓</span> Guardar producto</button></div>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
