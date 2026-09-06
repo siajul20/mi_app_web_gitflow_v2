@@ -14,6 +14,7 @@ const defaultProducts = [
 let products = loadProducts();
 let editingId = null;
 let toastTimer;
+let sortState = { field: null, direction: 1 };
 
 const elements = {
   tableBody: document.querySelector('#productTableBody'),
@@ -61,12 +62,14 @@ function getFilteredProducts() {
   const query = elements.search.value.trim().toLowerCase();
   const category = elements.categoryFilter.value;
   const status = elements.statusFilter.value;
-  return products.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     const matchesQuery = !query || product.name.toLowerCase().includes(query) || product.id.toLowerCase().includes(query);
     const matchesCategory = category === 'all' || product.category === category;
     const matchesStatus = status === 'all' || getStatus(product.stock).key === status;
     return matchesQuery && matchesCategory && matchesStatus;
   });
+  if (sortState.field) filteredProducts.sort((a, b) => (a[sortState.field] - b[sortState.field]) * sortState.direction);
+  return filteredProducts;
 }
 
 function renderCategories() {
@@ -184,5 +187,9 @@ elements.statusFilter.addEventListener('change', renderTable);
 elements.clearFilters.addEventListener('click', clearFilters);
 elements.selectAll.addEventListener('change', () => document.querySelectorAll('.row-check').forEach((checkbox) => { checkbox.checked = elements.selectAll.checked; }));
 document.querySelector('#exportButton').addEventListener('click', exportCsv);
+document.querySelectorAll('th.sortable').forEach((header) => header.addEventListener('click', () => {
+  sortState = { field: header.dataset.sort, direction: sortState.field === header.dataset.sort ? sortState.direction * -1 : 1 };
+  renderTable();
+}));
 
 render();
