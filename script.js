@@ -169,7 +169,16 @@ function showToast(message) { clearTimeout(toastTimer); elements.toast.textConte
 
 elements.form.addEventListener('submit', (event) => {
   event.preventDefault();
-  const data = { name: elements.productName.value.trim(), category: elements.productCategory.value, price: Number(elements.productPrice.value), stock: Number(elements.productStock.value) };
+  const productName = elements.productName.value.trim();
+  const duplicate = products.some((product) => product.id !== editingId && product.name.trim().toLowerCase() === productName.toLowerCase());
+  if (duplicate) {
+    elements.productName.setCustomValidity('Ya existe un producto con este nombre.');
+    elements.productName.reportValidity();
+    showToast('El nombre del producto ya existe');
+    return;
+  }
+  elements.productName.setCustomValidity('');
+  const data = { name: productName, category: elements.productCategory.value, price: Number(elements.productPrice.value), stock: Number(elements.productStock.value) };
   if (editingId) {
     products = products.map((product) => product.id === editingId ? { ...product, ...data } : product);
     showToast('Producto actualizado correctamente');
