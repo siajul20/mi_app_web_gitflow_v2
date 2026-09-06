@@ -21,6 +21,7 @@ const elements = {
   search: document.querySelector('#searchInput'),
   categoryFilter: document.querySelector('#categoryFilter'),
   statusFilter: document.querySelector('#statusFilter'),
+  clearFilters: document.querySelector('#clearFilters'),
   selectAll: document.querySelector('#selectAll'),
   modal: document.querySelector('#productModal'),
   form: document.querySelector('#productForm'),
@@ -93,7 +94,15 @@ function renderTable() {
   document.querySelector('#resultsSummary').textContent = `Mostrando ${filteredProducts.length} de ${products.length} productos`;
   document.querySelector('#productCountBadge').textContent = products.length;
   document.querySelector('#navProductCount').textContent = products.length;
+  elements.clearFilters.disabled = !elements.search.value && elements.categoryFilter.value === 'all' && elements.statusFilter.value === 'all';
   bindRowActions();
+}
+
+function clearFilters() {
+  elements.search.value = '';
+  elements.categoryFilter.value = 'all';
+  elements.statusFilter.value = 'all';
+  renderTable();
 }
 
 function renderMetrics() {
@@ -172,6 +181,7 @@ document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && 
 elements.search.addEventListener('input', renderTable);
 elements.categoryFilter.addEventListener('change', renderTable);
 elements.statusFilter.addEventListener('change', renderTable);
+elements.clearFilters.addEventListener('click', clearFilters);
 elements.selectAll.addEventListener('change', () => document.querySelectorAll('.row-check').forEach((checkbox) => { checkbox.checked = elements.selectAll.checked; }));
 document.querySelector('#exportButton').addEventListener('click', exportCsv);
 
