@@ -102,7 +102,7 @@
             <button class="more-button" aria-label="Más acciones">•••</button>
           </div>
           <div class="toolbar">
-            <label class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Buscar por nombre o ID..." aria-label="Buscar productos"></label>
+            <label class="search-box"><span>⌕</span><input type="search" id="searchInput" placeholder="Buscar por nombre o ID..." aria-label="Buscar productos"><kbd>/</kbd></label>
             <div class="filter-group">
               <label class="select-wrap"><span>Categoría:</span><select id="categoryFilter"><option value="all">Todas</option></select></label>
               <label class="select-wrap status-select"><span>Estado:</span><select id="statusFilter"><option value="all">Todos</option><option value="available">Disponible</option><option value="low">Stock bajo</option><option value="out">Agotado</option></select></label>
@@ -116,7 +116,7 @@
             </table>
             <div class="empty-state" id="emptyState" hidden><div class="empty-icon">⌕</div><h3>No encontramos productos</h3><p>Prueba con otra búsqueda o cambia los filtros activos.</p></div>
           </div>
-          <div class="table-footer"><span id="resultsSummary">Mostrando 8 de 8 productos</span><div class="pagination"><button class="page-button active">1</button><button class="page-button" disabled>2</button><button class="page-button" disabled>3</button><span>...</span><button class="page-button" disabled>›</button></div></div>
+          <div class="table-footer"><span id="resultsSummary" aria-live="polite">Mostrando 8 de 8 productos</span><div class="pagination"><button class="page-button active">1</button><button class="page-button" disabled>2</button><button class="page-button" disabled>3</button><span>...</span><button class="page-button" disabled>›</button></div></div>
         </section>
         <footer class="page-footer"><span>© 2024 Nexo Supply</span><span><i class="status-dot"></i> Todos los sistemas operativos</span><span>v2.4.0</span></footer>
       </div>

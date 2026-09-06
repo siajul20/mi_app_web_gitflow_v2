@@ -185,7 +185,13 @@ document.querySelector('#newProductButton').addEventListener('click', () => open
 document.querySelector('#closeModal').addEventListener('click', closeModal);
 document.querySelector('#cancelModal').addEventListener('click', closeModal);
 elements.modal.addEventListener('click', (event) => { if (event.target === elements.modal) closeModal(); });
-document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !elements.modal.hidden) closeModal(); });
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !elements.modal.hidden) closeModal();
+  if (event.key === '/' && elements.modal.hidden && !['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+    event.preventDefault();
+    elements.search.focus();
+  }
+});
 elements.search.addEventListener('input', renderTable);
 elements.categoryFilter.addEventListener('change', renderTable);
 elements.statusFilter.addEventListener('change', renderTable);
